@@ -4,7 +4,7 @@ cmake_policy(SET CMP0048 NEW) # Allow project() to set VERSION
 set(FAISS_LANGUAGES CXX)
 if(FAISS_ENABLE_GPU)
   list(APPEND FAISS_LANGUAGES CUDA)
-  set(CMAKE_CUDA_COMPILER "C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v12.4\\bin\\nvcc.exe")
+  set(CMAKE_CUDA_COMPILER "C:\\\\Program Files\\\\NVIDIA GPU Computing Toolkit\\\\CUDA\\\\v12.4\\\\bin\\\\nvcc.exe")
 endif()
 
 if(FAISS_ENABLE_RAFT)
@@ -37,7 +37,7 @@ option(FAISS_ENABLE_PYTHON "Build Python extension." ON)
 option(FAISS_ENABLE_C_API "Build C API." OFF)
 
 if(FAISS_ENABLE_GPU)
-  set(CUDA_TOOLKIT_ROOT_DIR "C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v12.4")
+  set(CUDA_TOOLKIT_ROOT_DIR "C:\\\\Program Files\\\\NVIDIA GPU Computing Toolkit\\\\CUDA\\\\v12.4")
   enable_language(CUDA)
 endif()
 
