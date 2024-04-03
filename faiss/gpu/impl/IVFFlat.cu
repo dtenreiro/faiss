@@ -283,6 +283,35 @@ void IVFFlat::searchPreassigned(
             storePairs);
 }
 
+void IVFFlat::reconstruct_n(idx_t i0, idx_t ni, float* out) {
+    if (ni == 0) {
+        // nothing to do
+        return;
+    }
+
+    auto stream = resources_->getDefaultStreamCurrentDevice();
+
+    for (idx_t list_no = 0; list_no < numLists_; list_no++) {
+        size_t list_size = deviceListData_[list_no]->numVecs;
+
+        auto idlist = getListIndices(list_no);
+
+        for (idx_t offset = 0; offset < list_size; offset++) {
+            idx_t id = idlist[offset];
+            if (!(id > i0 && id < i0 + ni)) {
+                continue;
+            }
+
+            auto listDataPtr =
+                    (float*)deviceListDataPointers_.getAt(list_no, stream) +
+                    offset * dim_;
+
+            fromDevice<float>(
+                    listDataPtr, out + (id - i0) * dim_, dim_, stream);
+        }
+    }
+}
+
 void IVFFlat::searchImpl_(
         Tensor<float, 2, true>& queries,
         Tensor<float, 2, true>& coarseDistances,
