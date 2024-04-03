@@ -37,7 +37,11 @@ option(FAISS_ENABLE_PYTHON "Build Python extension." ON)
 option(FAISS_ENABLE_C_API "Build C API." OFF)
 
 if(FAISS_ENABLE_GPU)
-  set(CUDA_TOOLKIT_ROOT_DIR "C:\\\\Program Files\\\\NVIDIA GPU Computing Toolkit\\\\CUDA\\\\v12.4")
+  if(DEFINED CUDA_TOOLKIT_ROOT_DIR)
+    set(CMAKE_CUDA_COMPILER "${CUDA_TOOLKIT_ROOT_DIR}/bin/nvcc.exe")
+  else()
+    message(FATAL_ERROR "CUDA_TOOLKIT_ROOT_DIR is not defined. Please specify the path to the CUDA toolkit.")
+  endif()
   enable_language(CUDA)
 endif()
 
