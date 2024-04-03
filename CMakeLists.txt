@@ -37,10 +37,9 @@ option(FAISS_ENABLE_PYTHON "Build Python extension." ON)
 option(FAISS_ENABLE_C_API "Build C API." OFF)
 
 if(FAISS_ENABLE_GPU)
-  if(DEFINED CUDA_DIR)
-    set(CMAKE_CUDA_COMPILER "${CUDA_DIR}/bin/nvcc.exe")
-  else()
-    message(FATAL_ERROR "CUDA_DIR is not defined. Please specify the path to the CUDA toolkit.")
+  # Allow specifying the CUDA compiler from an environment variable or CMake command line
+  if(NOT DEFINED CMAKE_CUDA_COMPILER)
+    set(CMAKE_CUDA_COMPILER $ENV{CUDA_COMPILER_PATH} "C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v12.4\\bin\\nvcc.exe")
   endif()
   enable_language(CUDA)
 endif()
