@@ -1,3 +1,6 @@
+cmake_minimum_required(VERSION 3.29) # Adjust the version as necessary
+cmake_policy(SET CMP0048 NEW) # Allow project() to set VERSION
+
 set(FAISS_LANGUAGES CXX)
 if(FAISS_ENABLE_GPU)
   list(APPEND FAISS_LANGUAGES CUDA)
